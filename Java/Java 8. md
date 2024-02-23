@@ -1,0 +1,46 @@
+[Java] Java 8 Cleanup
+
+
+Java 8 is the most modified version.
+Because it's a version that makes it possible to take advantage of the hard-to-implement parallel processing in Java.
+
+
+With the advancement of the era, the PC has become more popular than multi-core. Parallel processing is now essential to efficiently process large amounts of data.
+
+
+Java programming is not easy to handle in parallel with other languages. Of course, you can use the threads to take advantage of the loose core that is playing. But there are disadvantages that are difficult for developers to manage, and many errors can occur while using it.
+
+
+To solve this problem, version 8 has added more features to make parallel processing easier and easier for developers.
+
+
+
+
+Three major features were added in version 8.
+
+
+Stream API
+Method Reference & Lamda
+Default Method
+
+
+Stream API is an API that supports parallel operations. Now you don't have to use the synchronized that you used to use for parallel processing.
+
+
+The Stream API is a continuous delivery of a given item. By constructing a pipeline, the order of progress is defined, but it is possible to handle the task at the same time.
+
+
+As the stream pipeline handles the task, it assigns the task to several CPU cores. This allows you to work efficiently when dealing with one large item. This means that parallel processing can be done easily without the use of threads.
+
+
+
+
+In addition, method references and lambda are also available in Java, allowing the implementation of operating parameters. Anonymous classes were also available, but the code became more complicated and difficult to reuse.
+
+
+
+
+
+
+[Notes]
+링크
