@@ -1,0 +1,158 @@
+[Java]Interview List
+Let's just put the concepts together and put them in your head.
+If you intend to have a question that is not in the question itself, I added it.
+Instead of a complete explanation, focus on interview responses, and additional responses write a good keyword.
+Language (Java, C++... )
+Operating System
+Database
+Network
+스프링
+What's the Garvey collection?
+Background & Question Intent
+
+
+Understanding the structure of JVM, especially the Heap Area
+답변
+
+
+The object used in the JVM where Java is running, namely the ability to manage objects in the Heap area.
+During this process, stop the world occurs, and to make this series process efficient, you need to change the furniture collector or adjust the detailed value.
+Keyword & Tail Question
+
+
+Garbage collection process, understanding of the type of garbage collector
+What's the difference between StringBuilder and StringBuffers?
+Background & Question Intent
+
+
+mutation, immutation
+Understand performance issues arising from the operation of String, an immutable object
+String
+immutation
+Reduced performance due to repetitive creation of immutable objects in the process of calculating string strings.
+답변
+
+
+같은점
+mutation
+Support for api such as append()
+차이점
+StringBuilder does not support synchronization, so it speeds faster in single threads.
+StringBuffer supports synchronization in multi-thread environments, but this implementation should question the logic.
+Keyword & Tail Question
+
+
+Operate String in Practice
+What is the memory area in Java?
+Background & Question Intent
+
+
+Understanding JVM Structure
+답변
+
+
+It is divided into methods, hip, stack, pc registers, and native areas.
+Method areas are created when a class is loaded and are primarily stored for static variables.
+The hip area is allocated on runtime and mostly objects are stored.
+The stack area is allocated when compiling and the regional variable is saved when calling the method.
+The pc registry knows the address of the following command as the area created each time a thread is created.
+A native area is an area for code written in a non-Java language.
+Hips and stacks dynamically share the same memory space, and OOMs can occur if overused.
+The hip area is sorted through the GC.
+Keyword & Tail Question
+
+
+Method Area (Class Area)
+It is created when a class is loaded.
+Class, variable, method information
+static variable
+Constant pool - Character constant, type, field, object reference saved
+Stack Area
+Compilation is assigned on time.
+When a method is called, an individual stack is created and disconnected when terminated.
+Area where temporary values, such as regional variables, are generated
+It has the address value of the object that is generated in the Heap area.
+Heap Area
+Runtime is assigned.
+The area where objects and arrangements are stored to be created with new keywords
+It will not be deleted immediately if there is no reference variable. -> Deleted via GC.
+Java: GC, compile/runtime difference
+CS: Process/Single Thread/Multi Thread Difference
+What's the difference between overloading and over-loading?
+Background & Question Intent
+
+
+답변
+
+
+Overloading
+No return type relationship, same method name, different parameters (material type or order)
+Overriding
+Return type, method name, and parameter are all the same.
+To redefine the methods inherited from the parent class.
+Keyword & Tail Question
+
+
+Overloading is useful when multiple creators are needed.
+Interface is one of the ways to lower the bondage, and overriding is actively used in this process.
+What's the difference between an abstract class and an interface?
+Background & Question Intent
+
+
+답변
+
+
+abstract class Abstract class
+Supports single inheritance.
+You can have variables.
+There must be one or more abstract methods.
+Implement abstract methods through inheritance in the children's class. (extends)
+You can inherit implemented methods that are not abstract methods.
+Interface
+Supports multiple inheritance.
+Cannot have a variable. Constant is possible.
+All methods exist only as declarations.
+Implementation class overriding all declared methods.
+Keyword & Tail Question
+
+
+The higher the java version, the more the functionality of abstract is absorbed by the interface.
+java 8: default method available in interface
+java 9: private method available in interface
+Generic?
+Make the type used in the class to be set outside the class
+The class declared as a generic can be used to create the type I want.
+<Only reference types (classes, interfaces, arrangements) are available (wrapper classes must be used to use basic data types)
+참고
+Autoboxing, Unboxing
+Access controller? (Access Modifier)
+Background & Question Intent
+
+
+답변
+
+
+public: All access permitted
+protected: Inherited class or similar package but allowed access
+default: Default limit. Inside your class or like package but allowed access
+private: External access is not possible. Only within the same class.
+Keyword & Tail Question
+
+
+참고
+Normally, default is not used well, preferring explicit expressions.
+Java Compilation Process
+Background & Question Intent
+
+
+Question close to CS
+답변
+
+
+The compiler converted: Source Code -> Java Byte Code(.class)
+JVM Convert: Bytecode -> Machine
+Run Applications with Interpreter
+Keyword & Tail Question
+
+
+JIT Compiler
