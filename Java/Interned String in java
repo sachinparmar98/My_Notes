@@ -1,0 +1,44 @@
+Interned String in Java
+Strings in Java are immutable. When a function in a string is called, it does not modify the object directly, but returns an object other than the object as a result of the function. But that's not always the case. Let's take an example below.
+
+
+public void func() {
+String haribo1st = new String("HARIBO");
+String copiedHaribo1st = haribo1s.toUpperCase();
+
+
+System.out.println(haribo1st);   
+}
+After declaring a string called "HARIBO", toUpperCase() is called. As it is an immutable object, toUpperCase() should be called to distinguish the existing object from the other object. However, when compared with ==, true is the same value. This is because of the logic of the toUpperCase() function. The function returns the existing object if the lower case character is not found.
+
+
+So if you create a string using the new String ("HARIBO") it's the same object as the object declared as "HARibO"? No. When declared through the Creator, a new object with the same string is created. This means allocating new memory to the heap.
+
+
+public void func() {
+String haribo1st = new String("HARIBO");
+String haribo3rd = "HARIBO";
+
+
+System.out.println(haribo1st ==haribo3rd);
+System.out.println (haribo1st.equals(haribo3rd));
+}
+==The result of the comparison is false, but the result of equals() is true. Two strings have the same value but are actually different objects. Comparing the hash values of the two objects makes it clear.
+
+
+public void func() {
+String haribo3rd = "HARIBO";
+String haribo4th = String.valueOf("HARIBO");
+        
+System.out.println(haribo3rd ==haribo4th);
+System.out.println (haribo3rd.equals(haribo4th));
+}
+This time, let's look at objects declared as literal and objects imported as String.valueOf(). If you enter the valueOf() function, you will find that the given parameter is null and then call the toString() parameter, if not null. Here String.toString() returns this. In other words, both sentences are literal declarations like "HARIBO". Then why is the object declared literal the same object?
+
+
+It's because it's managing strings through constant pool in JVM. If the string declared as literal is in the constant pool, the object will be obtained immediately. If it's not in the pool, create a new object, then register and import it. Because of this flow, the string declared as "HARIBO" comes from the same object. Let's take a look at the String.intern() function.
+
+
+References
+https://www.latera.kr/blog/2019-02-09-java-string-intern/
+https://blog.naver.com/adamdoha/222817943149
