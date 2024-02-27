@@ -1,0 +1,18 @@
+java.lang.Math:Contains static methods for performing basic numeric operations like square root, logarithm, trigonometry, etc.
+
+double squareRoot = Math.sqrt(25.0);
+
+
+java.util.Collections:Provides static methods for working with collections, such as sorting, searching, and shuffling.
+
+List<Integer> myList = Arrays.asList(3, 1, 4, 1, 5, 9);
+Collections.sort(myList);
+
+
+java.util.Arrays:
+Contains various static methods for manipulating arrays.
+
+int[] array = {4, 2, 7, 1};
+Arrays.sort(array);
+
+While these classes have static methods, they don't fall into the category of being "static classes" in the way static nested classes are defined. If you have a specific kind of static class in mind, please provide more details.
