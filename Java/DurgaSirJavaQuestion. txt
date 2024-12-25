@@ -164,3 +164,32 @@ Summary
 In the case of call by value, the data value is copied and passed to the function, so there is no possibility of the original data being changed. However, since memory space must be allocated every time an argument is passed, more memory space is consumed.
 
 In the case of call by reference, the memory space allocation problem is solved, but there is a risk that the original value may be changed.
+
+***×*******************************
+
+Object class wait, notify, notifyAll
+Java's top class = Object class
+
+Methods that Object Class has
+
+toString()
+
+hashCode()
+
+wait()
+
+Release the unique lock it had, put the thread to sleep
+
+notify()
+
+Wake up a random one of the sleeping threads.
+
+notifyAll()
+
+Wake up all sleeping threads.
+
+wait, notify, notifyAll: The calling thread must have a unique lock.
+
+=> It must be executed within a synchronized block.
+
+=> If called within that block, an IllegalMonitorStateException occurs.
