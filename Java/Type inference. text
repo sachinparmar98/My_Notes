@@ -1,10 +1,21 @@
 What Does Type Inference Mean?
 
-Type inference is the automatic deduction of the data types of specific expressions in a programming language, usually done at compile time. It involves analyzing a program and then inferring the different types of some or all expressions in that program so that the programmer does not need to explicitly input and define data types every time variables are used in the program.
+Type inference is the automatic deduction of the data types of specific expressions 
+in a programming language, usually done at compile time. It involves analyzing a 
+program and then inferring the different types of some or all expressions in that 
+program so that the programmer does not need to explicitly input and define data 
+types every time variables are used in the program.
 
 
 Techopedia Explains Type Inference
-Type inference is often a compiler feature of functional programming languages rather than of object-oriented ones. The compiler or interpreter needs only minimal information as well as context in order to figure out what the data type of a variable or expression is.
+Type inference is often a compiler feature of functional programming languages rather
+ than of object-oriented ones. The compiler or interpreter needs only minimal 
+ information as well as context in order to figure out what the data type of a 
+ variable or expression is.
 
-The inference algorithm tries to determine the argument types as well as the return value type and then it tries to find the most specific data type that works with all of the arguments. As a basic example, consider the function Foo(a,b) = x + y; the compiler knows that the "+" operator takes two integers and also returns an integer, so now the compiler or interpreter can infer that Foo also has the type integer.
+The inference algorithm tries to determine the argument types as well as the return
+ value type and then it tries to find the most specific data type that works with all
+ of the arguments. As a basic example, consider the function Foo(a,b) = x + y; the 
+ compiler knows that the "+" operator takes two integers and also returns an integer,
+ so now the compiler or interpreter can infer that Foo also has the type integer.
 

@@ -16,7 +16,9 @@ Understanding the structure of JVM, especially the Heap Area
 
 
 The object used in the JVM where Java is running, namely the ability to manage objects in the Heap area.
-During this process, stop the world occurs, and to make this series process efficient, you need to change the furniture collector or adjust the detailed value.
+During this process, stop the world occurs, and to make this series process efficient, you need to change
++ the furniture collector or adjust the detailed value.
++ the furniture collector or adjust the detailed value.
 Keyword & Tail Question
 
 
