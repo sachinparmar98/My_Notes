@@ -1,0 +1,195 @@
+Call by value and Call by reference
+
+A fairly basic question, but a topic that is easy to get confused about.
+
+call by value
+
+When a function is called, a separate temporary space for the function is created in the memory space (the space disappears when it ends)
+
+The call by value method copies the variable values ​​passed when calling the function and passes them as function arguments
+
+At this time, the copied arguments are used locally in the function, so they have the local value property
+
+Therefore, even if the argument values ​​change in the function, the external variable values ​​do not change
+
+Example
+void func(int n) {
+n = 20;
+}
+
+void main() {
+int n = 10;
+func(n);
+printf("%d", n);
+}
+The value printed by printf is 10 as it is.
+
+call by reference
+Call by reference
+
+The call by reference method passes the reference of the variable passed as an argument when calling a function
+
+Therefore, if the argument value changes in the function, the value of the object passed as an argument also changes
+
+void func(int *n) {
+*n = 20;
+}
+
+void main() {
+int n = 10;
+func(&n);
+printf("%d", n);
+}
+The value printed by printf is 20.
+
+Java function call method
+In Java, the function call method varies depending on the data type of the argument passed to the function
+
+primitive type(primitive data type): call by value
+
+int, short, long, float, double, char, boolean
+
+reference type(reference data type): call by reference
+
+array, Class instance
+
+In Java, the value is always passed by call by value.
+
+There is no way to get the address value of the variable itself like in C/C++, and there is no way to pass it.
+
+When passing a reference type, the address value of the corresponding object is copied and used.
+
+Therefore, it is possible to access the properties of the original object, but the original object itself cannot be changed.
+
+Let's look at the example code below.
+
+User a = new User("gyoogle"); // 1
+
+foo(a);
+
+public void foo(User b){ // 2
+b = new User("jongnan"); // 3
+}
+
+/*
+=============================================
+
+// 1 : Create and assign a User object to a (Have the address value of the newly created object)
+
+a -----> User Object [name = "gyoogle"]
+
+============================================
+
+// 2 : Copy the address value of a to the parameter b and have it
+
+a -----> User Object [name = "gyoogle"]
+
+↑
+b -----------
+
+============================================
+
+// 3 : Create a new object and assign the newly created b has the address value and a points to the original object as it is
+
+a -----> User Object [name = "gyoogle"]
+
+b -----> User Object [name = "jongnan"]
+
+*/
+Java, which uses the method of copying the address value of the object/value to the parameter and passing it, can be misunderstood as call by reference that passes the address value and uses the value stored in the address value.
+
+This can be seen by looking at the way variables are allocated in C/C++ and Java.
+
+// c/c++
+
+int a = 10;
+int b = a;
+
+cout << &a << ", " << &b << endl; // out: 0x7ffeefbff49c, 0x7ffeefbff498
+
+a = 11;
+
+cout << &a << endl; // out: 0x7ffeefbff49c
+
+//java
+
+int a = 10;
+int b = a;
+
+System.out.println(System.identityHashCode(a)); // out: 1627674070
+System.out.println(System.identityHashCode(b)); // out: 1627674070
+
+a = 11;
+
+System.out.println(System.identityHashCode(a)); // out: 1360875712
+In C/C++, each created variable allocates a new memory space and overwrites the value in it. (* If you use a pointer, you can make it point to the same address value.)
+
+In Java, each created variable also has a new memory space, but instead of storing the value itself in that memory space, the value is allocated to another memory space and the address value is stored.
+
+This can be expressed as follows.
+
+C/C++ | Java
+|
+a -> [ 10 ] | a -> [ XXXX ] [ 10 ] -> XXXX(location)
+b -> [ 10 ] | b -> [ XXXX ]
+|
+Change value
+a -> [ 11 ] | a -> [ YYYY ] [ 10 ] -> XXXX(location)
+b -> [ 10 ] | b -> [ XXXX ] [ 11 ] -> YYYY(location)
+When b = a;, it is the same as overwriting the value of a with the value of b, but there is a difference between storing the actual value and storing the address of the value.
+
+That is, a variable in Java has [the location of the assigned value] as [the value].
+
+In C/C++, when the address value itself is passed as an argument and the value is changed, it is overwritten with a new value and the existing value is changed, but in Java, the address value is overwritten, so the original value is not affected at all. (Accessing and changing the property value of an object is changing it by accessing it directly, so the change occurs in the variables that point to it.)
+
+Accessing an object and changing the property value
+
+a : [ XXXX ] [ Object [prop : ~ ] ] -> XXXX(location)
+b : [ XXXX ]
+
+prop : ~ (This is also a variable, so ~ is stored somewhere and prop has its address value)
+prop : [ YYYY ] [ ~ ] -> YYYY(location)
+
+a.prop = * (Change prop through a)
+
+prop : [ ZZZZ ] [ ~ ] -> YYYY(location)
+[ * ] -> ZZZZ
+
+b -> Access Object -> Access prop -> ZZZZ
+For the same reason, when passing it as an argument in Java, it is called call by value because it copies the address value and passes it.
+
+Source: Is Java “pass-by-reference” or “pass-by-value”? - Stack Overflow
+
+Summary
+In the case of call by value, the data value is copied and passed to the function, so there is no possibility of the original data being changed. However, since memory space must be allocated every time an argument is passed, more memory space is consumed.
+
+In the case of call by reference, the memory space allocation problem is solved, but there is a risk that the original value may be changed.
+
+***×*******************************
+
+Object class wait, notify, notifyAll
+Java's top class = Object class
+
+Methods that Object Class has
+
+toString()
+
+hashCode()
+
+wait()
+
+Release the unique lock it had, put the thread to sleep
+
+notify()
+
+Wake up a random one of the sleeping threads.
+
+notifyAll()
+
+Wake up all sleeping threads.
+
+wait, notify, notifyAll: The calling thread must have a unique lock.
+
+=> It must be executed within a synchronized block.
+
+=> If called within that block, an IllegalMonitorStateException occurs.
