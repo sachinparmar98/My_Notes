@@ -1,0 +1,294 @@
+
+
+
+*******************************************************************
+
+
+The toString() method of a class is very important, and Java provides you with easy ways to use it. 
+Java calls the toString() method of an object automatically for you in situations when it needs a string 
+representation of the object. Two such situations that are worth mentioning:
+•	 A string concatenation expression involving a reference of an object
+•	 A call to the System.out.print() and System.out.println() methods with an 
+object reference as a parameter
+When you concatenate a string and an object like this:
+String str = "Hello" + new Point(10, 20);
+Java calls the toString() method on the Point object and concatenates the returned value to the 
+"Hello" string. This statement will assign a "Hello(10, 20)" string to the str variable. This statement is the 
+same as the following one:
+String str = "Hello" + new Point(10, 20).toString();
+You use the string concatenation operator (+) to concatenate data of different types. First, Java gets the 
+string representations of all data before concatenating them. Calling the toString() method of an object 
+automatically for you in a concatenation expression helps you save some typing. If the object reference that 
+is used in concatenation is a null reference, Java uses a "null" string as the string representation.
+The following snippet of code makes the call to the toString() method on object references clear. 
+You may observe that the result is the same when you use the object’s reference by itself or you call 
+its toString() method in a string concatenation expression. Similarly, when you use System.out.
+println(pt), Java automatically calls the toString() method on the pt reference variable.
+Point pt = new Point(10, 12);
+// str1 and str2 will have the same contents
+String str1 = "Test " + pt;
+String str2 = "Test " + pt.toString();
+System.out.println(pt);
+System.out.println(pt.toString());
+System.out.println(str1);
+System.out.println(str2);
+Chapter 11 ■ Object and Objects Class
+414
+(10, 12)
+(10, 12)
+Test (10, 12)
+Test (10, 12)
+The following snippet of code shows the effect of using a null reference in a string concatenation 
+expression and in the System.out.println() method call. Note that you cannot use pt.toString() when 
+pt is holding a null reference. The call to any method on a null reference will generate a runtime exception.
+// Set pt to null
+Point pt = null;
+String str3 = "Test " + pt; 
+System.out.println(pt);
+System.out.println(str3);
+//System.out.println(pt.toString()); /* Will generate a runtime exception */
+null
+Test null
+
+***************************************************************************************************
+
+
+
+. When you override a method, you have an option to drop the throws clause that is declared in the 
+superclass.
+Listing 11-8. A DoubleHolder Class with Cloning Capability
+// DoubleHolder.java
+package com.jdojo.object;
+public class DoubleHolder implements Cloneable {
+ private double value;
+ public DoubleHolder(double value) {
+ this.value = value;
+ }
+ public void setValue(double value) {
+ this.value = value;
+ }
+Chapter 11 ■ Object and Objects Class
+416
+ public double getValue() {
+ return this.value;
+ }
+ @Override
+ public Object clone() {
+ DoubleHolder copy = null;
+ try {
+ // Call the clone() method of the Object class, which will do a
+ // bit-by-bit copy and return the reference of the clone
+ copy = (DoubleHolder) super.clone();
+ } catch (CloneNotSupportedException e) {
+ // If anything goes wrong during cloning, print the error details
+ e.printStackTrace();
+ }
+ return copy;
+ }
+}
+
+
+From Java 5, you need not specify the return type of the clone() method in your class as the Object
+type. You can specify your class as the return type in the clone() method declaration. This will not force 
+the client code to use a cast when it calls the clone() method of your class. The following snippet of code 
+shows the changed code for the DoubleHolder class, which will compile only in Java 5 or later. It declares 
+DoubleHolder as the return type of the clone() method and uses a cast in the return statement.
+// DoubleHolder.java
+package com.jdojo.object;
+public class DoubleHolder implements Cloneable {
+ /* The same code goes here as before... */
+ public DoubleHolder clone() {
+ Object copy = null;
+ /* The same code goes here as before... */
+ return (DoubleHolder)copy;
+ }
+}
+
+
+
+
+
+
+Listing 11-12. A DeepClone Class That Performs Deep Cloning
+// DeepClone.java
+package com.jdojo.object;
+public class DeepClone implements Cloneable {
+ private DoubleHolder holder = new DoubleHolder(0.0);
+ public DeepClone(double value) {
+ this.holder.setValue(value);
+ }
+ public void setValue(double value) {
+ this.holder.setValue(value);
+ }
+ public double getValue() {
+ return this.holder.getValue();
+ }
+ @Override
+ public Object clone() {
+ DeepClone copy = null;
+ try {
+ copy = (DeepClone) super.clone();
+Chapter 11 ■ Object and Objects Class
+421
+ // Need to clone the holder reference variable too
+ copy.holder = (DoubleHolder) this.holder.clone();
+ } catch (CloneNotSupportedException e) {
+ e.printStackTrace();
+ }
+ return copy;
+ }
+}
+
+
+note ===
+■ Tip Using the clone() method of the Object class is not the only way to make a clone of an object. You 
+can use other methods to clone an object. You may provide a copy constructor, which accepts an object of 
+the same class and creates a clone of that object. You may provide a factory method in your class, which may 
+accept an object and return its clone. Another way to clone an object is to serialize it and then deserialized it.
+Serializing and deserializing objects is covered in Chapter 7 of the second volume of this series
+
+
+
+*********************************************************************************************************
+
+
+Listing 11-17. An Example of an Immutable Class
+// IntWrapper.java
+package com.jdojo.object;
+public class IntWrapper { 
+ private final int value;
+ public IntWrapper(int value) {
+ this.value = value;
+ }
+ public int getValue() {
+ return value;
+ }
+}
+This is how you create an object of the IntWrapper class:
+IntWrapper wrapper = new IntWrapper(101);
+
+
+//(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((
+What Is an Array?
+An array is a fixed-length data structure that is used to hold more than one value of the same data type. 
+
+
+Because all arrays are objects, their references can be assigned to a reference variable of the Object
+type. For example,
+int[] empId = new int[5]; // Create an array object
+Object obj = empId; // A valid assignment
+However, if you have the reference of an array in a reference variable of the Object type, you need to 
+cast it to the appropriate array type before you can assign it to an array reference variable or access elements 
+by index. Remember that every array is an object. However, not every object is necessarily an array.
+// Assume that obj is a reference of the Object type that holds a reference of int[]
+int[] tempIds = (int[]) obj;
+
+
+Length of an Array
+An array object has a public final instance variable named length, which contains the number of 
+elements in the array.
+int[] empId = new int[5]; // Create an array of length 5
+int len = empId.length; // 5 will be assigned to len
+Note that length is the property of the array object you create. Until you create the array object, you 
+cannot use its length property. The following code fragment illustrates this:
+// salary is a reference variable, which can refer to an array of int.
+// At this point, it contains null. That is, it is not referencing a valid object.
+int[] salary = null;
+// A runtime error. salary is not referring to any array object yet.
+int len = salary.length;
+// Create an int array of length 1000 and assign its reference to salary
+salary = new int[1000];
+// Correct. len2 has a value 1000
+int len2 = salary.length;
+
+
+
+
+You cannot change the length of an array after it is created. You may be tempted to modify the length
+property.
+int[] roll = new int[5]; // Create an array of 5 elements
+// A compile-time error. The length property of an array is final. You cannot modify it.
+roll.length = 10;
+
+
+
+
+706
+You can have a zero-length array. Such an array is called an empty array.
+// Create an array of length zero
+int[] emptyArray = new int[0];
+// Will assign zero to len
+int len = emptyArray.length;
+■ Tip  Arrays use zero-based indexing. That is, the first element of an array has an index of zero. Arrays 
+created dynamically at runtime. The length of an array cannot be modified after the array has been created.
+If you need to modify the length of an array, you must create a new array and copy the elements from the old 
+array to the new array. An array can have its length as zero
+
+
+
+int[] empId = new int[5];
+Here, empId[0], empId[1]...empId[4] contain an int value. Suppose you have an array of String, 
+like so:
+String[] name = new String[5];
+Here, name[0], name[1]...name[4] may contain a reference to a String object. Note that the String
+objects,
+
+
+
+
+Explicit Array Initialization
+int[] empId = {1, 2, 3, 4, 5, }; // A comma after the last value 5 is valid.
+
+
+
+. It is valid to create an 
+empty array by using an empty initialization list.
+int[] emptyNumList = { };
+
+
+ You can copy array elements from one array to another in two ways:
+•	 Using a loop
+•	 Using the static arraycopy() method of the java.lang.System class
+•	 Using the copyOf() method of the java.util.Arrays class
+
+
+
+Another way to copy elements of an array to another array is by using the arraycopy() method of the 
+System class. The signature of the arraycopy() method is as follows:
+public static void arraycopy(Object sourceArray, int sourceStartPosition,
+ Object destinationArray,
+int destinationStartPosition,
+int lengthToBeCopied)
+Here,
+•	 sourceArray is the reference to the source array.
+•	 sourceStartPosition is the starting index in the source array from where the 
+copying of elements will start.
+•	 destinationArray is the reference to the destination array.
+•	 destinationStartPosition is the start index in the destination array from where 
+new elements from source array will be copied.
+•	 lengthToBeCopied is the number of elements to be copied from the source array to 
+the destination array.
+You can replace the previous for loop with the following code:
+// Now copy array elements using the arraycopy() method
+System.arraycopy (ids, 0, tempIds, 0, elementsToCopy);
+You can also use the copyOf() static method of the Arrays class. The following show some of copyOf()
+method’s declarations:
+•	 boolean[] copyOf(boolean[] original, int newLength)
+•	 byte[] copyOf(byte[] original, int newLength)
+•	 char[] copyOf(char[] original, int newLength)
+•	 double[] copyOf(double[] original, int newLength)
+     float[] copyOf(float[] original, int newLength)
+•	 int[] copyOf(int[] original, int newLength)
+•	 short[] copyOf(long[] original, int newLength)
+•	 <T> T[] copyOf(T[] original, int newLength)
+The first argument to the copyOf() method is the source array. The second argument, newLength, is the 
+number of elements in the new array. If newLength is less than the length of the source array, the returned 
+array will be a truncated copy of the source array. If newLength is greater than the length of the source array, 
+the returned array will contain all elements from the original array and the extra elements will be having 
+default values set based on the data type of the array. If newLength is equal to the length of the source array, 
+the returned array contain the same number of elements as the source array.
+
+
+Enhanced for Loop for Arrays
+Java has an enhanced for loop that lets you loop through elements of an array in a cleaner way. The 
+enhanced for loop is also known as a for-each loop. 
